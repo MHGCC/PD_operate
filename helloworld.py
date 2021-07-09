@@ -1,13 +1,15 @@
-import pandas as pd
-import numpy as np
-from tools.plots_and_others import plot
+import os
+from tools.load_asc import *
 
+def main():
 
-a=[1,2,3]
-b=[[1,2,3],[4,5,6],[7,8,9]]
+    asc_file_path='D:/Project/PD_operate/data/1.asc'
+    csv_save_path='D:/Project/data_try'
+    read_file(asc_file_path,csv_save_path)
+    # 这一步之后已在csv_save_path生成了n个切割好的csv文件，进行迭代
+    for i,file_name in enumerate(os.listdir(csv_save_path)):
+        csv_file=csv_save_path+'/'+file_name
+        csv_file_save_path=csv_save_path+'/'+file_name
+        read_asc(csv_file,csv_file_save_path,time=20)
 
-a=np.array(a)
-b=np.array(b)
-
-plot(a,save_path='D:/Project/PD_operate/data/a.tiff',model=1)
-plot(b,save_path='D:/Project/PD_operate/data/b.tiff',model=3,label=['111','222','333'],axis_x='x',axis_y='y',title='x-y')
+main()

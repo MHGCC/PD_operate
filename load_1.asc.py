@@ -1,8 +1,13 @@
+'''
+    load_1.asc 读取 原始数据.asc文件，然后传递给load_asc进行处理
+    在main()中调用时，input  file_path--.asc文件地址，包含.asc后缀，save_path--拆分的.csv文件保存地址，'/'
+'''
+
 import os 
 import numpy as np
 import re
 
-def read_file(file_path):
+def read_file(file_path,save_path):
     count=0
     i=0
     flag_start=False
@@ -31,7 +36,7 @@ def read_file(file_path):
                 data_x=np.array(data_x)
                 data_y=np.array(data_y)
                 data_pupilD=np.array(data_pupilD)
-                np.savetxt('D:/Project/PD_operate/data/'+str(count)+'_'+video_name+'.csv'
+                np.savetxt(save_path+str(count)+'_'+video_name+'.csv'
                 ,np.column_stack((data_id,data_x,data_y,data_pupilD)),fmt='%s',delimiter = ',',header='id,x,y,pupilD',comments='')
                 i=0
                 data_id=[]
@@ -48,8 +53,10 @@ def read_file(file_path):
                     eye_data=line.split()
                     id=eye_data[0][:]
                     data_id.append(eye_data[0][:])
+                    '''
                     if eye_data[0][:]=='3828558':
                         print('here')
+                    '''
                     x=eye_data[1][:]
                     data_x.append(eye_data[1][:])
                     y=eye_data[2][:]
@@ -57,10 +64,14 @@ def read_file(file_path):
                     pupilD=eye_data[3][:]
                     data_pupilD.append(eye_data[3][:])
                     i=i+1
+    
+    return
 
 def main():
     file_path='D:/Project/PD_operate/data/1.asc'
-    read_file(file_path)
+    # save_path=''
+    # save_path这里设置为目标文件夹即可
+    read_file(file_path,save_path)
 
 main()
 
